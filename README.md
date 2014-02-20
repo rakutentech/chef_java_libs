@@ -58,39 +58,4 @@ Only one of the following
         notifies :restart, "runit_service[jenkins]", :delayed
     end
 
-Usage
-=====
-
-Simply include the `java` recipe where ever you would like Java installed.
-
-To install Oracle flavored Java override the `node['java']['install_flavor']` attribute with in role:
-
-    name "java"
-    description "Install Oracle Java on Ubuntu"
-    default_attributes(
-      "java" => {
-        "install_flavor" => "oracle"
-      }
-    )
-    run_list(
-      "recipe[java]"
-    )
-
-To install IBM flavored Java, set the required attributes:
-
-    name "java"
-    description "Install IBM Java on Ubuntu"
-    default_attributes(
-      "java" => {
-        "install_flavor" => "ibm",
-        "ibm" => {
-          "accept_ibm_download_terms" => true,
-          "url" => "http://fileserver.example.com/ibm-java-x86_64-sdk-7.0-4.1.bin",
-          "checksum" => "The SHA256 checksum of the bin"
-        }
-      }
-    )
-    run_list(
-      "recipe[java]"
-    )
 
