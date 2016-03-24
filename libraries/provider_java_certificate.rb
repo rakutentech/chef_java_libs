@@ -22,6 +22,7 @@ require "digest/sha2"
 require "fileutils"
 
 class Chef::Provider::JavaCertificate < Chef::Provider::LWRPBase  
+  provides :java_certificate
   action :install do
       
       directory "#{Chef::Config[:file_cache_path]}"
