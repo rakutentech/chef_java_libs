@@ -22,7 +22,6 @@ require "digest/sha2"
 require "fileutils"
 
 class Chef::Provider::JavaCertificate < Chef::Provider::LWRPBase  
-
   action :install do
       
       directory "#{Chef::Config[:file_cache_path]}"
@@ -123,11 +122,10 @@ class Chef::Provider::JavaCertificate < Chef::Provider::LWRPBase
           
       keytool = "#{node['java']['java_home']}/bin/keytool"
 
-      has_key = !`#{keytool} -list -keystore #{truststore} -storepass #{truststore_passwd} -v | grep "#{certalias}"`[/Alias name: #{certalias}/].nil?
-      Chef::Application.fatal!("Error querying keystore for existing certificate: #{$?}", $?.to_s[/exit (\d+)/, 1].to_i) unless $?.success?
+      has_key = !`#{keytool} -list -keystore #{truststore} -storepass #{truststore_passwd} -v | grep '#{certalias}'`[/Alias name: #{certalias}/].nil?
+      Chef::Log.info("no #{certalias} in keystore: #{$?.to_s[/exit (\d+)/, 1].to_i}") unless $?.success?
       
       if has_key
-          
           `#{keytool} -delete -alias \"#{certalias}\" -keystore #{truststore} -storepass #{truststore_passwd}`            
           Chef::Application.fatal!("Error deleting existing certificate \"#{certalias}\" in " \
               "keystore so it can be updated: #{$?}", $?.to_s[/exit (\d+)/, 1].to_i) unless $?.success? 
