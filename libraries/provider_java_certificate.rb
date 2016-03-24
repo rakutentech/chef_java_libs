@@ -112,7 +112,8 @@ class Chef::Provider::JavaCertificate < Chef::Provider::LWRPBase
       
       directory "#{Chef::Config[:file_cache_path]}"
       
-      certalias = new_resource.name
+      certalias = new_resource.cert_alias
+      certalias = new_resource.name if certalias.nil?
 
       truststore = new_resource.keystore_path
       truststore_passwd = new_resource.keystore_passwd
