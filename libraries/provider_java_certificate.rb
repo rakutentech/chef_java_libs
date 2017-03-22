@@ -54,7 +54,7 @@ class Chef
             command = "openssl s_client -showcerts -connect #{certendpoint}"
             command = "#{command} -servername #{servername}" if !servername.nil?
             result = `echo QUIT | #{command}`
-            Chef::Log.debug("Executing: echo QUIT | openssl s_client -showcerts -connect #{certendpoint}\n#{result}")
+            Chef::Log.debug("Executing: echo QUIT | #{command}\n#{result}")
 
             if $?.success?
               certout = result.split(/-----BEGIN CERTIFICATE-----|-----END CERTIFICATE-----/)
