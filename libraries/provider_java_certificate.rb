@@ -45,12 +45,15 @@ class Chef
         certdata = new_resource.cert_data
         certdatafile = new_resource.cert_file
         certendpoint = new_resource.ssl_endpoint
+        servername = new_resource.server_name
 
         if certdata.nil?
           if !certdatafile.nil?
             certdata = IO.read(certdatafile)
           elsif !certendpoint.nil?
-            result = `echo QUIT | openssl s_client -showcerts -connect #{certendpoint}`
+            command = "openssl s_client -showcerts -connect #{certendpoint}"
+            command = "#{command} -servername #{servername}" if !servername.nil?
+            result = `echo QUIT | #{command}`
             Chef::Log.debug("Executing: echo QUIT | openssl s_client -showcerts -connect #{certendpoint}\n#{result}")
 
             if $?.success?
