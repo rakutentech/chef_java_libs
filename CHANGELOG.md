@@ -1,6 +1,8 @@
 # java-libraries Releases
 
-This file is used to list changes made in each version of the java-libraries cookbook.
+# 0.9.0
+
+* Added SNI Support
 
 # 0.8.0
 
