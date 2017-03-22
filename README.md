@@ -1,5 +1,7 @@
 # java_libs
 
+![Build Status](https://travis-ci.org/rakutentech/chef_java_libs.svg?branch=master)
+
 ## Description
 
 This cookbook contains LWRPs and HWRPs for handling optional common configuration of the JVM. The LWRPs and/or libraries in this cookbook should be referenced from recipes that run after the installation and configuration of Java via the cookbook at https://github.com/socrata-cookbooks/java.
