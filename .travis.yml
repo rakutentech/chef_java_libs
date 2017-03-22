@@ -1,0 +1,23 @@
+sudo: false
+
+addons:
+  apt:
+    sources:
+      - chef-current-precise
+    packages:
+      - chefdk
+
+before_install:
+  - eval "$(/opt/chefdk/bin/chef shell-init bash)"
+
+install: echo "Using ChefDK gems"
+
+before_script:
+  - berks install
+  - gem install docker-api -v 1.28.0
+
+script:
+#  - cookstyle
+  - foodcritic .
+  - rubocop
+#  - rspec
